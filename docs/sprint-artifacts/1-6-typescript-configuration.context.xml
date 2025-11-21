@@ -1,0 +1,140 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>E1</epicId>
+    <storyId>S6</storyId>
+    <title>TypeScript Configuration and Types</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/epics-and-stories.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>developer</asA>
+    <iWant>strict TypeScript configuration</iWant>
+    <soThat>type safety prevents bugs</soThat>
+    <tasks></tasks>
+  </story>
+
+  <acceptanceCriteria>- [ ] tsconfig.json configured with strict mode
+- [ ] Path aliases configured (@/components, @/features, etc.)
+- [ ] Common types defined (Task, Mood, Cluster, etc.)
+- [ ] Utility types created (AsyncState, ApiResponse, etc.)
+- [ ] Type guards implemented for runtime checks
+- [ ] No `any` types in codebase
+- [ ] All imports properly typed</acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/prd.md</path>
+        <title>Product Requirements Document</title>
+        <section>Technology Stack</section>
+        <snippet>TypeScript (strict mode)</snippet>
+      </doc>
+      <doc>
+        <path>docs/prd.md</path>
+        <title>Product Requirements Document</title>
+        <section>Code Quality</section>
+        <snippet>TypeScript strict mode throughout</snippet>
+      </doc>
+      <doc>
+        <path>docs/prd.md</path>
+        <title>Product Requirements Document</title>
+        <section>Maintainability</section>
+        <snippet>TypeScript strict mode throughout</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>System Architecture Document</title>
+        <section>Technology Stack Details</section>
+        <snippet>TypeScript strict mode configuration</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>System Architecture Document</title>
+        <section>Development Workflow</section>
+        <snippet>TypeScript strict mode throughout</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>tsconfig.json</path>
+        <kind>configuration</kind>
+        <symbol>compilerOptions</symbol>
+        <lines>1-39</lines>
+        <reason>Root TypeScript configuration with strict mode and path aliases</reason>
+      </artifact>
+      <artifact>
+        <path>src/types/index.ts</path>
+        <kind>types</kind>
+        <symbol>Task</symbol>
+        <lines>9-18</lines>
+        <reason>Core Task interface definition</reason>
+      </artifact>
+      <artifact>
+        <path>src/types/index.ts</path>
+        <kind>types</kind>
+        <symbol>MoodType</symbol>
+        <lines>36-42</lines>
+        <reason>Mood type definitions for prioritization</reason>
+      </artifact>
+      <artifact>
+        <path>src/types/index.ts</path>
+        <kind>types</kind>
+        <symbol>AsyncState</symbol>
+        <lines>86-89</lines>
+        <reason>Utility type for async operations</reason>
+      </artifact>
+      <artifact>
+        <path>src/types/index.ts</path>
+        <kind>types</kind>
+        <symbol>ApiResponse</symbol>
+        <lines>120-128</lines>
+        <reason>Generic API response type</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <ecosystem name="npm">
+        <package name="typescript" version="^5.3.3" type="devDependency">TypeScript compiler</package>
+        <package name="@types/react" version="^18.2.43" type="devDependency">React type definitions</package>
+        <package name="@types/react-dom" version="^18.2.17" type="devDependency">React DOM type definitions</package>
+        <package name="@typescript-eslint/eslint-plugin" version="^7.0.0" type="devDependency">TypeScript ESLint plugin</package>
+        <package name="@typescript-eslint/parser" version="^7.0.0" type="devDependency">TypeScript ESLint parser</package>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>TypeScript strict mode throughout codebase. Path aliases configured for clean imports. No any types allowed. Strict null checks enabled. All components fully typed.</constraints>
+  <interfaces>
+    <interface>
+      <name>Task</name>
+      <kind>interface</kind>
+      <signature>interface Task { id: string; title: string; description?: string; completed: boolean; createdAt: number; completedAt?: number; deferredUntil?: number; metadata: TaskMetadata; }</signature>
+      <path>src/types/index.ts</path>
+    </interface>
+    <interface>
+      <name>MoodType</name>
+      <kind>type</kind>
+      <signature>type MoodType = 'energized' | 'focused' | 'calm' | 'creative' | 'tired' | 'stressed';</signature>
+      <path>src/types/index.ts</path>
+    </interface>
+    <interface>
+      <name>AsyncState</name>
+      <kind>interface</kind>
+      <signature>interface AsyncState { loading: boolean; error: string | null; }</signature>
+      <path>src/types/index.ts</path>
+    </interface>
+    <interface>
+      <name>ApiResponse</name>
+      <kind>type</kind>
+      <signature>type ApiResponse<T> = { success: true; data: T; } | { success: false; error: string; };</signature>
+      <path>src/types/index.ts</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>TypeScript strict mode with no any types. ESLint with TypeScript rules. Vitest for unit testing. Type checking with tsc --noEmit.</standards>
+    <locations>src/test/ for unit tests. src/**/*.test.ts for test files. src/**/*.spec.ts for integration tests.</locations>
+    <ideas>Test Task interface validation. Test MoodType union types. Test AsyncState error handling. Test ApiResponse discriminated unions. Test path alias resolution.</ideas>
+  </tests>
+</story-context>

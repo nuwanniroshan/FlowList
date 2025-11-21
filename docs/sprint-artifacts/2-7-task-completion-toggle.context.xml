@@ -1,0 +1,126 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>7</storyId>
+    <title>task-completion-toggle</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-21</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/2-7-task-completion-toggle.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>As a user</asA>
+    <iWant>I want to mark tasks complete/incomplete</iWant>
+    <soThat>so that I can track my progress</soThat>
+    <tasks>- [ ] Task 1: Implement task completion toggle functionality (AC: 1,2,3,4,5,6,7)
+  - [ ] Update TaskCard component to handle completion toggle
+  - [ ] Add checkbox with proper styling
+  - [ ] Implement strikethrough for completed tasks
+  - [ ] Add completion animation
+  - [ ] Move task to completed view after animation
+  - [ ] Show undo toast
+  - [ ] Implement optimistic update
+  - [ ] Record completion timestamp
+- [ ] Testing Tasks
+  - [ ] Write unit tests for TaskCard completion functionality
+  - [ ] Test checkbox toggle
+  - [ ] Test strikethrough display
+  - [ ] Test completion animation
+  - [ ] Test undo functionality
+  - [ ] Test optimistic update</tasks>
+  </story>
+
+  <acceptanceCriteria>1. Checkbox toggles completion status
+2. Completed tasks show strikethrough
+3. Completion animation (fade to green, slide out)
+4. Task moves to completed view after animation
+5. Undo toast appears for 3 seconds
+6. Optimistic update feels instant
+7. Completion timestamp recorded</acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>FlowList - System Architecture Document</title>
+        <section>Component Architecture</section>
+        <snippet>TaskCard component includes TaskCheckbox for completion status. Component hierarchy shows TaskItem with TaskCheckbox, TaskTitle, TaskDescription, TaskActions including TimeSlipButton, EditButton, DeleteButton.</snippet>
+      </doc>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>FlowList - Epics</title>
+        <section>Epic 2: Basic Task Management</section>
+        <snippet>E2-S7: Task Completion Toggle - Checkbox toggles completion status, completed tasks show strikethrough, completion animation, task moves to completed view, undo toast, optimistic update, completion timestamp recorded.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>src/components/tasks/TaskCard.tsx</path>
+        <kind>component</kind>
+        <symbol>TaskCard</symbol>
+        <lines>1-100</lines>
+        <reason>Existing TaskCard component that needs to be updated with completion toggle functionality</reason>
+      </artifact>
+      <artifact>
+        <path>src/features/tasks/tasksSlice.ts</path>
+        <kind>slice</kind>
+        <symbol>completeTask</symbol>
+        <lines>1-50</lines>
+        <reason>Redux async thunk for completing tasks, handles IndexedDB operations</reason>
+      </artifact>
+      <artifact>
+        <path>src/types/index.ts</path>
+        <kind>types</kind>
+        <symbol>Task</symbol>
+        <lines>1-20</lines>
+        <reason>Task interface definition with completed and completedAt fields</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <ecosystem name="npm">
+        <package name="@mui/material" version="5.14.0+">Material UI components including Checkbox</package>
+        <package name="@reduxjs/toolkit" version="1.9.0+">Redux Toolkit for state management</package>
+        <package name="framer-motion" version="10.0.0+">Animation library for completion effects</package>
+        <package name="dexie" version="3.2.0+">IndexedDB wrapper for data persistence</package>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Follow established React functional component patterns with hooks</constraint>
+    <constraint>Use Material UI Checkbox component with proper accessibility</constraint>
+    <constraint>Implement optimistic updates with Redux Toolkit async thunks</constraint>
+    <constraint>Add smooth animations using framer-motion</constraint>
+    <constraint>Ensure completion timestamp is recorded in IndexedDB</constraint>
+    <constraint>Task must move to completed view after animation completes</constraint>
+    <constraint>Undo toast must appear for 3 seconds with proper dismissal</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>completeTask</name>
+      <kind>async thunk</kind>
+      <signature>completeTask(taskId: string) => Promise<string></signature>
+      <path>src/features/tasks/tasksSlice.ts</path>
+    </interface>
+    <interface>
+      <name>Task</name>
+      <kind>interface</kind>
+      <signature>interface Task { id: string; title: string; completed: boolean; completedAt?: number; ... }</signature>
+      <path>src/types/index.ts</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>Use Vitest for unit testing with React Testing Library. Follow established test patterns from existing TaskCard tests. Test component behavior, user interactions, and state changes.</standards>
+    <locations>src/components/tasks/TaskCard.test.tsx for component tests, src/features/tasks/tasksSlice.test.ts for slice tests</locations>
+    <ideas>
+      <idea>Test checkbox click toggles completion status (AC: 1)</idea>
+      <idea>Test completed tasks show strikethrough styling (AC: 2)</idea>
+      <idea>Test completion animation triggers on toggle (AC: 3)</idea>
+      <idea>Test task moves to completed view after animation (AC: 4)</idea>
+      <idea>Test undo toast appears and functions correctly (AC: 5)</idea>
+      <idea>Test optimistic update prevents UI lag (AC: 6)</idea>
+      <idea>Test completion timestamp is recorded (AC: 7)</idea>
+    </ideas>
+  </tests>
+</story-context>

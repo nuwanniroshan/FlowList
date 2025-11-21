@@ -1,0 +1,161 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>3</storyId>
+    <title>task-list-view-component</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/2-3-task-list-view-component.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>As a user</asA>
+    <iWant>I want to see all my incomplete tasks in a list</iWant>
+    <soThat>so that I know what I need to do</soThat>
+    <tasks>- [ ] Task 1: Create TaskList component (AC: 1,2,3,4,5,7)
+  - [ ] Implement basic TaskList component structure
+  - [ ] Connect to Redux store using useAppSelector
+  - [ ] Display tasks sorted by creation date (newest first)
+  - [ ] Add empty state component
+  - [ ] Implement loading skeleton
+  - [ ] Add smooth animations for task changes
+  - [ ] Make layout responsive (mobile/tablet/desktop)
+- [ ] Task 2: Implement virtual scrolling (AC: 6)
+  - [ ] Install react-window library
+  - [ ] Implement FixedSizeList for large task lists
+  - [ ] Configure item size and overscan
+  - [ ] Test performance with > 100 tasks
+- [ ] Testing Tasks
+  - [ ] Write unit tests for TaskList component
+  - [ ] Test responsive layout
+  - [ ] Test virtual scrolling functionality
+  - [ ] Test empty state and loading states</tasks>
+  </story>
+
+  <acceptanceCriteria>1. Task list displays all incomplete tasks
+2. Tasks sorted by creation date (newest first)
+3. Empty state shown when no tasks
+4. Loading skeleton shown while fetching
+5. Smooth animations for task additions/removals
+6. Virtual scrolling for > 100 tasks
+7. Responsive layout (mobile, tablet, desktop)</acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <artifact>
+        <path>docs/prd.md</path>
+        <title>Product Requirements Document</title>
+        <section>User Interface & Navigation</section>
+        <snippet>Defines responsive design requirements, touch targets, and interaction patterns for task list components.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>System Architecture Document</title>
+        <section>Component Architecture</section>
+        <snippet>Specifies component design patterns, container/presentational pattern, and optimization strategies.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>System Architecture Document</title>
+        <section>State Management Architecture</section>
+        <snippet>Details Redux Toolkit integration, selectors, and state flow for task management.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/epics.md</path>
+        <title>Epic Breakdown</title>
+        <section>E2-S3: Task List View Component</section>
+        <snippet>Complete acceptance criteria and implementation requirements for task list component.</snippet>
+      </artifact>
+    </docs>
+    <code>
+      <artifact>
+        <path>src/features/tasks/tasksSlice.ts</path>
+        <kind>service</kind>
+        <symbol>selectAllTasks, selectVisibleTasks</symbol>
+        <reason>Redux selectors for accessing task data from store</reason>
+      </artifact>
+      <artifact>
+        <path>src/types/index.ts</path>
+        <kind>interface</kind>
+        <symbol>Task</symbol>
+        <lines>9-18</lines>
+        <reason>Task data model interface that component must consume</reason>
+      </artifact>
+      <artifact>
+        <path>src/app/store.ts</path>
+        <kind>service</kind>
+        <symbol>store</symbol>
+        <reason>Redux store configuration for state management</reason>
+      </artifact>
+      <artifact>
+        <path>src/app/hooks.ts</path>
+        <kind>service</kind>
+        <symbol>useAppSelector, useAppDispatch</symbol>
+        <reason>Typed Redux hooks for component integration</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <node>
+        <react>^18.2.0</react>
+        <react-dom>^18.2.0</react-dom>
+        <react-redux>^9.0.4</react-redux>
+        <mui-material>^5.15.0</mui-material>
+        <mui-icons-material>^5.15.0</mui-icons-material>
+        <framer-motion>^10.16.16</framer-motion>
+        <emotion-react>^11.11.1</emotion-react>
+        <emotion-styled>^11.11.0</emotion-styled>
+      </node>
+    </dependencies>
+  </artifacts>
+
+  <constraints>- Follow Material UI component patterns and theming
+- Implement responsive design using MUI breakpoints
+- Use container/presentational component pattern
+- Integrate with existing Redux store and task slice
+- Follow established TypeScript patterns
+- Implement virtual scrolling for performance with > 100 tasks
+- Use smooth animations with framer-motion
+- Ensure accessibility compliance (WCAG 2.1 Level AA)</constraints>
+
+  <interfaces>
+    <interface>
+      <name>Task</name>
+      <kind>interface</kind>
+      <signature>interface Task {
+  id: string;
+  title: string;
+  description?: string;
+  completed: boolean;
+  createdAt: number;
+  completedAt?: number;
+  deferredUntil?: number;
+  metadata: TaskMetadata;
+}</signature>
+      <path>src/types/index.ts</path>
+    </interface>
+    <interface>
+      <name>selectVisibleTasks</name>
+      <kind>function</kind>
+      <signature>export const selectVisibleTasks = createSelector(
+  [selectAllTasks],
+  (tasks) => tasks.filter(task => 
+    !task.deferredUntil || task.deferredUntil <= Date.now()
+  )
+);</signature>
+      <path>src/features/tasks/tasksSlice.ts</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>Use Vitest for unit testing with React Testing Library. Follow existing patterns in tasksSlice.test.ts. Test component rendering, user interactions, and responsive behavior.</standards>
+    <locations>src/**/*.test.ts, src/**/*.test.tsx</locations>
+    <ideas>- Test TaskList renders all incomplete tasks (AC: 1)
+- Test tasks sorted by creation date descending (AC: 2)
+- Test empty state display when no tasks (AC: 3)
+- Test loading skeleton during data fetch (AC: 4)
+- Test smooth animations for task changes (AC: 5)
+- Test virtual scrolling with large task lists (AC: 6)
+- Test responsive layout across breakpoints (AC: 7)</ideas>
+  </tests>
+</story-context>

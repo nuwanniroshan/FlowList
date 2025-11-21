@@ -1,0 +1,129 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>5</storyId>
+    <title>task-creation-quick-add</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-21</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/2-5-task-creation-quick-add.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>As a user,</asA>
+    <iWant>I want to quickly add a task,</iWant>
+    <soThat>so that I can capture todos without friction.</soThat>
+    <tasks>- [ ] Task 1: Create TaskInput component (AC: 1,2,3,4,5,6,7,8)
+  - [ ] Implement basic TaskInput component structure
+  - [ ] Add input field with placeholder
+  - [ ] Implement Enter key handler
+  - [ ] Add input clearing after creation
+  - [ ] Add focus return after creation
+  - [ ] Implement validation (required, max length)
+  - [ ] Add error feedback display
+  - [ ] Add animation for new task appearance
+- [ ] Testing Tasks
+  - [ ] Write unit tests for TaskInput component
+  - [ ] Test validation and error states
+  - [ ] Test keyboard interactions</tasks>
+  </story>
+
+  <acceptanceCriteria>1. Quick add input at top of task list
+2. Placeholder text: "+ Add a task..."
+3. Enter key creates task
+4. Input clears after creation
+5. New task appears at top of list with animation
+6. Focus returns to input after creation
+7. Validation: title required, max 500 chars
+8. Error feedback for invalid input</acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>FlowList - System Architecture Document</title>
+        <section>Component Architecture</section>
+        <snippet>FlowList follows a strict layered architecture with clear separation of concerns. Components are designed with container/presentational pattern, custom hooks for logic encapsulation, and compound component pattern for complex UIs.</snippet>
+      </doc>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>FlowList - Epics</title>
+        <section>E2-S5: Task Creation (Quick Add)</section>
+        <snippet>As a user, I want to quickly add a task, so that I can capture todos without friction. Acceptance criteria include quick add input, Enter key creation, validation, and error feedback.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>src/features/tasks/tasksSlice.ts</path>
+        <kind>slice</kind>
+        <symbol>addTask</symbol>
+        <lines>42-58</lines>
+        <reason>Async thunk for creating new tasks, handles validation and IndexedDB storage</reason>
+      </artifact>
+      <artifact>
+        <path>src/components/tasks/TaskList.tsx</path>
+        <kind>component</kind>
+        <symbol>TaskList</symbol>
+        <lines>1-50</lines>
+        <reason>Main task list component where TaskInput should be integrated at the top</reason>
+      </artifact>
+      <artifact>
+        <path>src/db/database.ts</path>
+        <kind>database</kind>
+        <symbol>FlowListDB</symbol>
+        <lines>1-20</lines>
+        <reason>Dexie database configuration for task storage</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <dependency>
+        <ecosystem>npm</ecosystem>
+        <packages>
+          <package name="react" version="^18.2.0" />
+          <package name="react-redux" version="^8.1.0" />
+          <package name="@reduxjs/toolkit" version="^1.9.0" />
+          <package name="@mui/material" version="^5.14.0" />
+          <package name="dexie" version="^3.2.0" />
+          <package name="framer-motion" version="^10.0.0" />
+        </packages>
+      </dependency>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Follow established React + TypeScript + MUI patterns from TaskCard component</constraint>
+    <constraint>Use Redux Toolkit async thunks for task creation</constraint>
+    <constraint>Implement optimistic UI updates for instant feedback</constraint>
+    <constraint>Ensure touch targets meet 44x44px minimum for mobile accessibility</constraint>
+    <constraint>Validate input on client-side with proper error messaging</constraint>
+    <constraint>Use framer-motion for smooth animations consistent with existing components</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>addTask</name>
+      <kind>Redux async thunk</kind>
+      <signature>export const addTask = createAsyncThunk('tasks/addTask', async (taskData: { title: string; description?: string }) => { ... })</signature>
+      <path>src/features/tasks/tasksSlice.ts</path>
+    </interface>
+    <interface>
+      <name>Task</name>
+      <kind>TypeScript interface</kind>
+      <signature>interface Task { id: string; title: string; description?: string; completed: boolean; createdAt: number; ... }</signature>
+      <path>src/types/index.ts</path>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>Use Vitest for unit testing with React Testing Library. Follow existing patterns in tasksSlice.test.ts for Redux testing and TaskCard.test.tsx for component testing.</standards>
+    <locations>src/**/*.test.ts, src/**/*.test.tsx</locations>
+    <ideas>
+      <idea>Test input validation prevents empty titles and titles over 500 characters</idea>
+      <idea>Test Enter key creates task and clears input</idea>
+      <idea>Test error feedback displays for invalid input</idea>
+      <idea>Test focus returns to input after task creation</idea>
+      <idea>Test animation triggers when new task appears</idea>
+      <idea>Test integration with Redux store updates task list</idea>
+    </ideas>
+  </tests>
+</story-context>

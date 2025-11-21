@@ -1,0 +1,116 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>4</storyId>
+    <title>task-card-component</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/2-4-task-card-component.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>user</asA>
+    <iWant>each task displayed as a card</iWant>
+    <soThat>I can easily read and interact with tasks</soThat>
+    <tasks>- [ ] Task 1: Create TaskCard component (AC: 1,2,3,4,5,6,7,8)
+  - [ ] Implement basic TaskCard component structure
+  - [ ] Add title, description, metadata display
+  - [ ] Implement completion checkbox
+  - [ ] Add edit and delete action buttons
+  - [ ] Add hover states for desktop
+  - [ ] Make touch-optimized for mobile
+  - [ ] Add animations for state changes
+  - [ ] Implement strikethrough for completed tasks
+- [ ] Testing Tasks
+  - [ ] Write unit tests for TaskCard component
+  - [ ] Test responsive layout
+  - [ ] Test animations and state changes</tasks>
+  </story>
+
+  <acceptanceCriteria>1. Task card shows title, description, metadata
+2. Checkbox for completion status
+3. Edit and delete action buttons
+4. Hover states on desktop
+5. Touch-optimized for mobile (44x44px targets)
+6. Card matches design system specifications
+7. Animations for state changes
+8. Completed tasks show strikethrough</acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>FlowList - System Architecture Document</title>
+        <section>Component Architecture</section>
+        <snippet>FlowList follows a strict layered architecture with clear separation of concerns. Component hierarchy shows TaskItem as part of TaskList with TaskCheckbox, TaskTitle, TaskDescription, TaskActions.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>FlowList - System Architecture Document</title>
+        <section>Component Design Patterns</section>
+        <snippet>Container/Presentational pattern used for components. Custom hooks for reusable logic. Compound component pattern for complex components.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>FlowList - System Architecture Document</title>
+        <section>Technology Stack Details</section>
+        <snippet>Material UI (MUI) for consistent, accessible component library. TypeScript for type safety. Framer Motion for animations.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/epics.md</path>
+        <title>FlowList - Epics</title>
+        <section>E2-S4: Task Card Component</section>
+        <snippet>Acceptance criteria for task card component including display requirements, interaction buttons, responsive design, and animations.</snippet>
+      </artifact>
+    </docs>
+    <code>
+      <artifact>
+        <path>src/components/tasks/TaskList.tsx</path>
+        <kind>component</kind>
+        <symbol>TaskList</symbol>
+        <lines>1-150</lines>
+        <reason>Reference component structure and patterns for creating TaskCard component</reason>
+      </artifact>
+      <artifact>
+        <path>src/features/tasks/tasksSlice.ts</path>
+        <kind>slice</kind>
+        <symbol>tasksSlice</symbol>
+        <lines>1-100</lines>
+        <reason>Redux slice for task state management, includes Task interface and actions</reason>
+      </artifact>
+      <artifact>
+        <path>src/types/index.ts</path>
+        <kind>types</kind>
+        <symbol>Task</symbol>
+        <lines>1-20</lines>
+        <reason>Task interface definition for component props</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <dependency ecosystem="npm">
+        <package name="@mui/material" version="5.14.0+">Component library for UI elements</package>
+        <package name="@emotion/react" version="*">Styling library for MUI</package>
+        <package name="framer-motion" version="*">Animation library for state changes</package>
+        <package name="react" version="18.2.0+">Core React library</package>
+        <package name="react-redux" version="*">Redux integration</package>
+        <package name="@reduxjs/toolkit" version="1.9.0+">State management</package>
+      </dependency>
+    </dependencies>
+  </artifacts>
+
+  <constraints>Follow Material UI design system specifications. Use TypeScript strict typing. Implement responsive design with MUI breakpoints. Ensure touch targets are minimum 44x44px. Use Framer Motion for animations. Follow established component patterns from TaskList. Integrate with Redux store using useAppSelector and useAppDispatch.</constraints>
+  <interfaces>
+    <interface>
+      <name>Task</name>
+      <kind>interface</kind>
+      <signature>interface Task { id: string; title: string; description?: string; completed: boolean; createdAt: number; completedAt?: number; }</signature>
+      <path>src/types/index.ts</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>Use vitest for unit testing. Follow existing test patterns from TaskList.test.tsx. Test component rendering, user interactions, and state changes.</standards>
+    <locations>src/components/tasks/TaskCard.test.tsx</locations>
+    <ideas>Test task card displays title and description correctly. Test completion checkbox toggles state. Test edit and delete buttons trigger actions. Test hover states on desktop. Test touch interactions on mobile. Test animations for state changes. Test strikethrough for completed tasks.</ideas>
+  </tests>
+</story-context>

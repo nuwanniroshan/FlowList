@@ -1,0 +1,159 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.1</storyId>
+    <title>project-initialization-and-build-setup</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/1-1-project-initialization-and-build-setup.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>developer</asA>
+    <iWant>a properly configured React + Vite project</iWant>
+    <soThat>I can start building features efficiently</soThat>
+    <tasks>- [ ] Task 1: Set up Vite project with React 18+ and TypeScript (AC: 1)
+  - [ ] Install Vite and React dependencies
+  - [ ] Configure TypeScript in Vite
+  - [ ] Create basic project structure
+  - [ ] Test basic build and dev server
+- [ ] Task 2: Configure package.json with required dependencies (AC: 2)
+  - [ ] Add React, React DOM, TypeScript
+  - [ ] Add development dependencies (Vite, TypeScript compiler)
+  - [ ] Configure scripts (dev, build, preview)
+  - [ ] Verify package.json structure
+- [ ] Task 3: Configure Vite for code splitting and optimization (AC: 3)
+  - [ ] Set up code splitting configuration
+  - [ ] Configure build optimizations
+  - [ ] Add PWA preparation settings
+  - [ ] Test build output
+- [ ] Task 4: Set up development server on port 3000 (AC: 4)
+  - [ ] Configure Vite dev server port
+  - [ ] Test server startup
+  - [ ] Verify port accessibility
+- [ ] Task 5: Implement hot module replacement (AC: 5)
+  - [ ] Configure HMR in Vite
+  - [ ] Test HMR functionality
+  - [ ] Verify file watching works
+- [ ] Task 6: Create optimized production build (AC: 6)
+  - [ ] Configure production build settings
+  - [ ] Test build command
+  - [ ] Verify output structure
+- [ ] Task 7: Ensure bundle size < 500KB gzipped (AC: 7)
+  - [ ] Analyze bundle size
+  - [ ] Optimize if necessary
+  - [ ] Verify gzipped size requirement
+- [ ] Testing Tasks
+  - [ ] Write unit tests for build configuration
+  - [ ] Test development server functionality
+  - [ ] Test production build process
+  - [ ] Test bundle size constraints</tasks>
+  </story>
+
+  <acceptanceCriteria>1. Vite project created with React 18+ and TypeScript
+2. Package.json configured with all required dependencies
+3. Vite config includes code splitting and optimization
+4. Development server runs on port 3000
+5. Hot module replacement works correctly
+6. Build command produces optimized production bundle
+7. Bundle size < 500KB gzipped</acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>System Architecture</title>
+        <section>Project Structure</section>
+        <snippet>Defines the overall project structure and organization for the FlowList application, including directory layout and module organization.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/prd.md</path>
+        <title>Product Requirements Document</title>
+        <section>Technical Requirements</section>
+        <snippet>Outlines the technical requirements for the application, including React 18+, TypeScript, and build tooling specifications.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/epics.md</path>
+        <title>Epics Document</title>
+        <section>Epic 1: Foundation & Infrastructure</section>
+        <snippet>Details the foundation epic including project setup, build configuration, and infrastructure requirements.</snippet>
+      </artifact>
+    </docs>
+    <code>
+      <artifact>
+        <path>src/main.tsx</path>
+        <kind>entry-point</kind>
+        <symbol>main</symbol>
+        <reason>Existing application entry point that needs to be preserved during project setup</reason>
+      </artifact>
+      <artifact>
+        <path>src/App.tsx</path>
+        <kind>component</kind>
+        <symbol>App</symbol>
+        <reason>Main application component that serves as the root of the React application</reason>
+      </artifact>
+      <artifact>
+        <path>src/index.css</path>
+        <kind>stylesheet</kind>
+        <symbol>global-styles</symbol>
+        <reason>Global CSS styles that need to be included in the build process</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <ecosystem name="node">
+        <package name="react" version="^18.0.0" type="dependency">Core React library for building user interfaces</package>
+        <package name="react-dom" version="^18.0.0" type="dependency">React DOM rendering library</package>
+        <package name="typescript" version="^5.0.0" type="devDependency">TypeScript compiler and type definitions</package>
+        <package name="vite" version="^4.4.0" type="devDependency">Fast build tool and development server</package>
+        <package name="@types/react" version="^18.0.0" type="devDependency">TypeScript definitions for React</package>
+        <package name="@types/react-dom" version="^18.0.0" type="devDependency">TypeScript definitions for React DOM</package>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Use Vite 4.4.0+ for optimal performance and modern build features</constraint>
+    <constraint>Configure for PWA support to prepare for future offline functionality</constraint>
+    <constraint>Set up path aliases for clean imports (@/components, @/features, etc.)</constraint>
+    <constraint>Follow architecture document for project structure and organization</constraint>
+    <constraint>Ensure TypeScript strict mode is enabled for type safety</constraint>
+    <constraint>Use modern React patterns and hooks throughout the application</constraint>
+    <constraint>Bundle size must be less than 500KB gzipped for performance</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>ViteConfig</name>
+      <kind>configuration</kind>
+      <signature>vite.config.ts: Vite configuration object with plugins, aliases, and build settings</signature>
+      <path>vite.config.ts</path>
+    </interface>
+    <interface>
+      <name>PackageJson</name>
+      <kind>configuration</kind>
+      <signature>package.json: NPM package configuration with scripts, dependencies, and metadata</signature>
+      <path>package.json</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      <standard>Use Jest or Vitest for unit testing with React Testing Library</standard>
+      <standard>Follow testing pyramid with focus on unit tests for utilities and components</standard>
+      <standard>Test build configuration and development server functionality</standard>
+      <standard>Include bundle size verification in CI/CD pipeline</standard>
+    </standards>
+    <locations>
+      <location>src/**/*.test.ts</location>
+      <location>src/**/*.test.tsx</location>
+      <location>tests/unit/</location>
+    </locations>
+    <ideas>
+      <idea>Test Vite configuration loads without errors</idea>
+      <idea>Test development server starts on correct port</idea>
+      <idea>Test production build completes successfully</idea>
+      <idea>Test bundle size is under 500KB gzipped</idea>
+      <idea>Test TypeScript compilation passes</idea>
+      <idea>Test hot module replacement works</idea>
+    </ideas>
+  </tests>
+</story-context>

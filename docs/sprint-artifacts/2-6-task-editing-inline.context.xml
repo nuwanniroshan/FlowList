@@ -1,0 +1,132 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>6</storyId>
+    <title>task-editing-inline</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-21</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/2-6-task-editing-inline.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>user</asA>
+    <iWant>edit tasks inline</iWant>
+    <soThat>update details without opening a modal</soThat>
+    <tasks>- [ ] Task 1: Implement inline editing for task title and description (AC: 1,2,3,4,5,6,7,8)
+  - [ ] Update TaskCard component to handle edit mode
+  - [ ] Add click handler for title to enter edit mode
+  - [ ] Replace title with TextField input
+  - [ ] Add description textarea when editing
+  - [ ] Implement save on blur/Enter, cancel on Escape
+  - [ ] Add validation for title required and length limits
+  - [ ] Implement optimistic update with error rollback
+  - [ ] Add visual feedback (loading states, error messages)
+- [ ] Testing Tasks
+  - [ ] Write unit tests for TaskCard edit functionality
+  - [ ] Test edit mode entry and exit
+  - [ ] Test validation and error states
+  - [ ] Test keyboard interactions (Enter, Escape)</tasks>
+  </story>
+
+  <acceptanceCriteria>1. Click task title to enter edit mode
+2. Title becomes editable input
+3. Description becomes editable textarea
+4. Save on blur or Enter key
+5. Cancel on Escape key
+6. Validation: title required, max lengths
+7. Optimistic update with rollback on error
+8. Visual feedback during editing</acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <artifact>
+        <path>docs/prd.md</path>
+        <title>FlowList - Product Requirements Document</title>
+        <section>Functional Requirements</section>
+        <snippet>FR8: Users can edit task titles and descriptions inline without entering a separate edit mode</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/epics.md</path>
+        <title>FlowList - Epics</title>
+        <section>Epic 2: Basic Task Management</section>
+        <snippet>E2-S6: Task Editing (Inline) - Acceptance Criteria include click to edit, save on blur/Enter, cancel on Escape, validation, optimistic update</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>System Architecture</title>
+        <section>Component Architecture</section>
+        <snippet>Follow established React + Redux + Material UI patterns for component development</snippet>
+      </artifact>
+    </docs>
+    <code>
+      <artifact>
+        <path>src/components/tasks/TaskCard.tsx</path>
+        <kind>component</kind>
+        <symbol>TaskCard</symbol>
+        <lines></lines>
+        <reason>Main task display component that will implement inline editing functionality</reason>
+      </artifact>
+      <artifact>
+        <path>src/features/tasks/tasksSlice.ts</path>
+        <kind>slice</kind>
+        <symbol>updateTask</symbol>
+        <lines></lines>
+        <reason>Redux action for updating task data with optimistic updates and error handling</reason>
+      </artifact>
+      <artifact>
+        <path>src/db/database.ts</path>
+        <kind>service</kind>
+        <symbol>Database</symbol>
+        <lines></lines>
+        <reason>IndexedDB service for persisting task updates</reason>
+      </artifact>
+      <artifact>
+        <path>src/types/index.ts</path>
+        <kind>interface</kind>
+        <symbol>Task</symbol>
+        <lines></lines>
+        <reason>Task interface definition for type safety</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <dependency ecosystem="node">
+        <package>react</package>
+        <version>^18.0.0</version>
+      </dependency>
+      <dependency ecosystem="node">
+        <package>@reduxjs/toolkit</package>
+        <version>^2.0.0</version>
+      </dependency>
+      <dependency ecosystem="node">
+        <package>@mui/material</package>
+        <version>^5.0.0</version>
+      </dependency>
+      <dependency ecosystem="node">
+        <package>dexie</package>
+        <version>^3.2.0</version>
+      </dependency>
+    </dependencies>
+  </artifacts>
+
+  <constraints>Follow established React functional component patterns with hooks. Use Material UI TextField and TextareaAutosize for editing inputs. Implement optimistic updates with Redux Toolkit async thunks. Add client-side validation for required fields and length limits. Use framer-motion for smooth animations. Ensure accessibility with proper ARIA labels and keyboard navigation. Follow existing error handling patterns from TaskInput component.</constraints>
+  <interfaces>
+    <interface>
+      <name>updateTask</name>
+      <kind>Redux async thunk</kind>
+      <signature>updateTask: (task: Task) => Promise<Task></signature>
+      <path>src/features/tasks/tasksSlice.ts</path>
+    </interface>
+    <interface>
+      <name>Task</name>
+      <kind>TypeScript interface</kind>
+      <signature>interface Task { id: number; title: string; description?: string; completed: boolean; createdAt: Date; }</signature>
+      <path>src/types/index.ts</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>Use Vitest for unit testing with React Testing Library. Follow existing test patterns from TaskInput.test.tsx. Test component rendering, user interactions, validation, and error states.</standards>
+    <locations>src/**/*.test.tsx</locations>
+    <ideas>Test edit mode activation on title click. Test input field replacement. Test save on Enter and blur. Test cancel on Escape. Test validation for empty title. Test optimistic update success and error rollback. Test visual feedback states.</ideas>
+  </tests>
+</story-context>

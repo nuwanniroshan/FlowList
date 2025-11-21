@@ -1,0 +1,166 @@
+<story-context id=".bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>2</epicId>
+    <storyId>2.2</storyId>
+    <title>task-data-model-and-redux-slice</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-20</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/2-2-task-data-model-and-redux-slice.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>developer</asA>
+    <iWant>a Task data model and Redux slice</iWant>
+    <soThat>task state is managed predictably</soThat>
+    <tasks>- [ ] Task 1: Define Task interface (AC: 1)
+  - [ ] Create comprehensive Task interface
+  - [ ] Include all required properties (id, title, description, completed, timestamps)
+  - [ ] Add optional fields for future features
+  - [ ] Ensure TypeScript compatibility
+- [ ] Task 2: Create tasksSlice with reducers (AC: 2)
+  - [ ] Set up createSlice with initial state
+  - [ ] Implement basic reducers (add, update, delete, toggle)
+  - [ ] Configure slice exports
+  - [ ] Test reducer functionality
+- [ ] Task 3: Implement async thunks for CRUD (AC: 3)
+  - [ ] Create async thunk for adding tasks
+  - [ ] Create async thunk for updating tasks
+  - [ ] Create async thunk for deleting tasks
+  - [ ] Integrate with database operations
+- [ ] Task 4: Create selectors for queries (AC: 4)
+  - [ ] Implement selectAllTasks selector
+  - [ ] Implement selectIncompleteTasks selector
+  - [ ] Implement selectCompletedTasks selector
+  - [ ] Create selectors for specific task queries
+- [ ] Task 5: Implement optimistic updates (AC: 5)
+  - [ ] Add optimistic updates to reducers
+  - [ ] Handle rollback on failure
+  - [ ] Ensure UI feels responsive
+  - [ ] Test optimistic update scenarios
+- [ ] Task 6: Add error handling (AC: 6)
+  - [ ] Handle database operation failures
+  - [ ] Implement error states in slice
+  - [ ] Provide user feedback on errors
+  - [ ] Test error scenarios
+- [ ] Task 7: Manage loading states (AC: 7)
+  - [ ] Add loading states to slice
+  - [ ] Implement pending/fulfilled/rejected states
+  - [ ] Update UI based on loading states
+  - [ ] Test loading state management
+- [ ] Testing Tasks
+  - [ ] Write unit tests for Task interface
+  - [ ] Test slice reducers
+  - [ ] Test async thunks
+  - [ ] Test selectors functionality</tasks>
+  </story>
+
+  <acceptanceCriteria>1. Task interface defined with all properties
+2. tasksSlice created with reducers
+3. Async thunks for CRUD operations
+4. Selectors for common queries
+5. Optimistic updates implemented
+6. Error handling for failed operations
+7. Loading states managed</acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <artifact>
+        <path>docs/architecture.md</path>
+        <title>System Architecture</title>
+        <section>State Management</section>
+        <snippet>Defines the Redux state management architecture with slices for different domains and integration with persistent storage.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/prd.md</path>
+        <title>Product Requirements Document</title>
+        <section>Functional Requirements</section>
+        <snippet>Specifies the task management functionality and state management requirements for the application.</snippet>
+      </artifact>
+      <artifact>
+        <path>docs/epics.md</path>
+        <title>Epics Document</title>
+        <section>Epic 2: Basic Task Management</section>
+        <snippet>Details the task CRUD operations and state management requirements for basic task functionality.</snippet>
+      </artifact>
+    </docs>
+    <code>
+      <artifact>
+        <path>src/app/store.ts</path>
+        <kind>store</kind>
+        <symbol>store</symbol>
+        <reason>Existing Redux store configuration that needs to integrate the new tasks slice</reason>
+      </artifact>
+      <artifact>
+        <path>src/db/database.ts</path>
+        <kind>database</kind>
+        <symbol>FlowListDB</symbol>
+        <reason>Database schema and operations that the Redux slice will interact with for persistence</reason>
+      </artifact>
+      <artifact>
+        <path>src/types/index.ts</path>
+        <kind>types</kind>
+        <symbol>Task</symbol>
+        <reason>Existing type definitions that may need extension for the task data model</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <ecosystem name="node">
+        <package name="react-redux" version="^8.0.0" type="dependency">React bindings for Redux</package>
+        <package name="@reduxjs/toolkit" version="^1.9.0" type="dependency">Redux Toolkit for simplified Redux setup</package>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Use Redux Toolkit for slice creation and async thunks</constraint>
+    <constraint>Integrate with IndexedDB database from previous story</constraint>
+    <constraint>Implement optimistic updates for better UX</constraint>
+    <constraint>Follow existing store configuration patterns</constraint>
+    <constraint>Ensure type safety with TypeScript throughout</constraint>
+    <constraint>Handle async operations and error states properly</constraint>
+    <constraint>Prepare for UI component integration</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Task Interface</name>
+      <kind>interface</kind>
+      <signature>interface Task { id?: number; title: string; description?: string; completed: boolean; createdAt: Date; updatedAt: Date; completedAt?: Date; deferredUntil?: Date; metadata?: Record<string, any>; }</signature>
+      <path>src/types/index.ts</path>
+    </interface>
+    <interface>
+      <name>Tasks Slice</name>
+      <kind>slice</kind>
+      <signature>const tasksSlice = createSlice({ name: 'tasks', initialState, reducers: { ... }, extraReducers: (builder) => { ... } })</signature>
+      <path>src/features/tasks/tasksSlice.ts</path>
+    </interface>
+    <interface>
+      <name>Async Thunks</name>
+      <kind>thunk</kind>
+      <signature>export const addTask = createAsyncThunk('tasks/addTask', async (task: Omit<Task, 'id'>, { rejectWithValue }) => { ... })</signature>
+      <path>src/features/tasks/tasksSlice.ts</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+      <standard>Use Jest with React Testing Library for slice testing</standard>
+      <standard>Test async thunks with mocked database operations</standard>
+      <standard>Include integration tests for Redux store integration</standard>
+      <standard>Test optimistic updates and error handling</standard>
+    </standards>
+    <locations>
+      <location>src/features/tasks/*.test.ts</location>
+      <location>src/features/tasks/*.test.tsx</location>
+      <location>tests/unit/redux/</location>
+    </locations>
+    <ideas>
+      <idea>Test Task interface type safety</idea>
+      <idea>Test slice reducers with various actions</idea>
+      <idea>Test async thunks with success and failure scenarios</idea>
+      <idea>Test selectors return correct data</idea>
+      <idea>Test optimistic updates rollback on failure</idea>
+      <idea>Test loading and error states in slice</idea>
+      <idea>Test integration with database operations</idea>
+    </ideas>
+  </tests>
+</story-context>
