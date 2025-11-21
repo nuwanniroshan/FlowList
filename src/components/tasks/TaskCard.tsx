@@ -135,19 +135,16 @@ function TaskCard({
     try {
       await dispatch(toggleTaskCompletion(task.id)).unwrap();
 
-      // If completing (not uncompleting), show undo snackbar
-      if (!task.completed) {
-        setShowUndoSnackbar(true);
-        undoTimeoutRef.current = setTimeout(() => {
-          setShowUndoSnackbar(false);
-        }, 3000);
-      }
-    } catch (error) {
+      // Show undo snackbar for both completion and uncompletion
+      setShowUndoSnackbar(true);
+      undoTimeoutRef.current = setTimeout(() => {
+        setShowUndoSnackbar(false);
+      }, 3000);
+    } catch (completionError) {
       // Rollback optimistic update
       dispatch(toggleTaskCompletionOptimistic(task.id));
       setError('Failed to update task completion. Please try again.');
-    } finally {
-      setIsCompleting(false);
+      setIsCompleting(false); // Reset animation state on error
     }
   };
 
@@ -186,7 +183,10 @@ function TaskCard({
           scale: 0.95,
           x: task.completed ? -300 : 0,
         }}
-        transition={{ duration: 0.3 }}
+        transition={{
+          duration: 0.3,
+          backgroundColor: { duration: 0.2 },
+        }}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
       >
@@ -362,7 +362,7 @@ function TaskCard({
           </Button>
         }
       >
-        Task completed
+        {`Task ${task.completed ? 'marked incomplete' : 'completed'}`}
       </Alert>
     </Snackbar>
     </>

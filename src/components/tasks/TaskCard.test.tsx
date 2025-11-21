@@ -1,7 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
 import { render, fireEvent } from '@testing-library/react';
+
+import type { Task } from '../../types';
 import TaskCard from './TaskCard';
-import { Task } from '../../features/tasks/tasksSlice';
 
 const mockTask: Task = {
   id: 1,
@@ -131,5 +132,35 @@ describe('TaskCard', () => {
     fireEvent.change(input, { target: { value: longTitle } });
     fireEvent.blur(input);
     expect(getByText('Title must be 500 characters or less')).toBeInTheDocument();
+  });
+
+  describe('Task Completion', () => {
+    it('calls onComplete when checkbox is clicked', () => {
+      const mockOnComplete = vi.fn();
+      const { getByRole } = render(
+        <TaskCard task={mockTask} onComplete={mockOnComplete} />
+      );
+      const checkbox = getByRole('checkbox');
+      fireEvent.click(checkbox);
+      expect(mockOnComplete).toHaveBeenCalledWith(1);
+    });
+
+    it('checkbox reflects completed state', () => {
+      const completedTask = { ...mockTask, completed: true };
+      const { getByRole } = render(
+        <TaskCard task={completedTask} />,
+      );
+      const checkbox = getByRole('checkbox');
+      expect(checkbox.checked).toBe(true);
+    });
+
+    it('shows strikethrough for completed tasks', () => {
+      const completedTask = { ...mockTask, completed: true };
+      const { getByText } = render(
+        <TaskCard task={completedTask} />,
+      );
+      const title = getByText('Test Task');
+      expect(title.style.textDecoration).toBe('line-through');
+    });
   });
 });
