@@ -47,7 +47,7 @@ development_status:
 
   epic-2: backlog
   2-1-indexeddb-setup-with-dexie-js: done
-  2-2-task-data-model-and-redux-slice: review
+  2-2-task-data-model-and-redux-slice: done
   2-3-task-list-view-component: done
   2-4-task-card-component: done
   2-5-task-creation-quick-add: done
